@@ -102,7 +102,7 @@ useEffect(() => {
               {/* Professional name animation */}
               <h1
                 className="text-5xl sm:text-6xl lg:text-7xl font-bold gradient-text leading-tight 
-             opacity-0 transform translate-x-8 animate-fade-in-up-gradient"
+             transform translate-x-8 animate-title-reveal"
               >
                 Md. Mahfujur Rahman
               </h1>
@@ -116,7 +116,7 @@ useEffect(() => {
             </div>
 
             <p
-              className="text-muted-foreground text-lg leading-relaxed max-w-xl 
+              className="text-muted-foreground text-lg text-justify leading-relaxed max-w-xl 
               opacity-0 transform translate-y-4 
               animate-fade-in-up-desc"
             >
@@ -229,21 +229,6 @@ useEffect(() => {
 
         .animate-fade-in-up-gradient {
           animation: fade-in-up-gradient 1.5s ease-out forwards;
-          background: linear-gradient(90deg, #f88d5bff, #ff4d4d, #fa7d43ff, #ff4d4d);
-          background-size: 300% 300%;
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          animation: fade-in-up-gradient 3s ease-out forwards, gradient-slide 3s ease infinite;
-        }
-
-        /* Gradient sliding animation */
-        @keyframes gradient-slide {
-          0%   { background-position: 0% 33%; }
-          20%  { background-position: 33% 66%; }
-          40%  { background-position: 66% 100%; }
-          60%  { background-position: 100% 66%; }
-          80%  { background-position: 66% 33%; }
-          100% { background-position: 33% 0%; }
         }
 
         @keyframes fade-in-up-desc {

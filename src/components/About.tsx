@@ -39,7 +39,7 @@ const About = () => {
           </div>
 
           {/* Bio */}
-          <div className="max-w-3xl mx-auto space-y-6 text-muted-foreground leading-relaxed animate-slide-up">
+          <div className="max-w-3xl mx-auto space-y-6 text-muted-foreground text-justify leading-relaxed animate-slide-up">
             <p>
               I am an undergraduate researcher in the Department of Computer Science & Engineering at 
               Varendra University, Bangladesh, specializing in Deep Learning, Optical Character Recognition (OCR), 
