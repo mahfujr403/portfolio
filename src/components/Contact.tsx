@@ -28,25 +28,25 @@ const Contact = () => {
     {
       icon: Linkedin,
       label: "LinkedIn",
-      url: "https://linkedin.com/in/mahfujur-rahman",
+      url: "https://www.linkedin.com/in/mahfujr403/",
       color: "hover:bg-blue-600",
     },
     {
       icon: Github,
       label: "GitHub",
-      url: "https://github.com/mahfujur-rahman",
+      url: "https://github.com/mahfujr403",
       color: "hover:bg-gray-700",
     },
     {
       icon: GraduationCap,
       label: "Google Scholar",
-      url: "https://scholar.google.com",
+      url: "https://scholar.google.com/citations?user=ssuw-WEAAAAJ&hl=en",
       color: "hover:bg-blue-500",
     },
     {
       icon: BookOpen,
       label: "ResearchGate",
-      url: "https://researchgate.net",
+      url: "https://www.researchgate.net/profile/Md-Mahfujur-Rahman-16",
       color: "hover:bg-cyan-600",
     },
   ];

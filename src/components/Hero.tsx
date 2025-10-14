@@ -1,11 +1,17 @@
-import { Mail, Phone, Linkedin, Github } from "lucide-react";
+// import { Mail, Phone, Linkedin, Github } from "lucide-react";
+import { Mail, Phone, Linkedin, Github, BookOpen, GraduationCap } from "lucide-react";
+import { SiResearchgate, SiGooglescholar, SiOrcid } from "react-icons/si";
 import { Button } from "@/components/ui/button";
 import profileImage from "@/assets/profile.jpg";
+import { userInfo } from "os";
 
 const Hero = () => {
   const socialLinks = [
-    { icon: Linkedin, url: "https://linkedin.com/in/mahfujur-rahman", label: "LinkedIn" },
-    { icon: Github, url: "https://github.com/mahfujur-rahman", label: "GitHub" },
+    { icon: Linkedin, url: "https://www.linkedin.com/in/mahfujr403/", label: "LinkedIn", user: "mahfujr403" },
+    {icon : BookOpen, url: "https://www.researchgate.net/profile/Md-Mahfujur-Rahman-16", label: "ResearchGate", user: "Mahfujur-Rahman_16"},
+    {icon : GraduationCap, url: "https://scholar.google.com/citations?user=ssuw-WEAAAAJ&hl=en", label: "Google Scholar", user:"ssuw-WEAAAAJ&hl"},
+    { icon: Github, url: "https://github.com/mahfujr403/", label: "GitHub", user: "mahfujr403" },
+    {icon : SiOrcid, url: "https://orcid.org/my-orcid?orcid=0009-0001-3674-7152", label: "ORCID", user: "0009-0001-3674-7152"},
   ];
 
   const scrollToContact = () => {
@@ -53,17 +59,20 @@ const Hero = () => {
                 </a>
               </div>
             </div>
+            
+
+
 
             {/* CTAs */}
             <div className="flex flex-wrap gap-4 pt-4">
-              <Button onClick={scrollToContact} size="lg" className="bg-primary hover:bg-primary/90">
+              <Button onClick={scrollToContact} size="lg" className="bg-primary hover:bg-primary/60 transition-transform transform hover:scale-105">
                 Get In Touch
               </Button>
               <Button 
                 variant="outline" 
                 size="lg"
                 onClick={() => window.open("#research", "_self")}
-                className="border-border hover:border-primary hover:text-primary"
+                className="border-border hover:border-primary transition-transform transform hover:scale-105"
               >
                 View Research
               </Button>
@@ -72,16 +81,35 @@ const Hero = () => {
             {/* Social Links */}
             <div className="flex gap-4 pt-2">
               {socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 rounded-lg bg-card hover:bg-primary transition-colors group"
-                  aria-label={social.label}
-                >
-                  <social.icon size={20} className="text-foreground group-hover:text-primary-foreground" />
-                </a>
+                // <a
+                //   key={index}
+                //   href={social.url}
+                //   target="_blank"
+                //   rel="noopener noreferrer"
+                //   className="p-2 rounded-lg bg-card hover:bg-primary transition-colors group"
+                //   aria-label={social.label}
+                // >
+                //   <social.icon size={20} className="text-foreground group-hover:text-primary-foreground" />
+                // </a>
+                <div key={index} className="relative flex-shrink-0 group">
+                  {/* Icon button */}
+                  <a
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-2 rounded-lg bg-card hover:bg-primary transition-colors flex items-center justify-center transition-transform transform hover:scale-110"
+                    aria-label={social.label}
+                  >
+                    <social.icon className="text-foreground" size={20} />
+                  </a>
+
+                  {/* Tooltip */}
+                  <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 text-xs rounded bg-black text-white opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap z-50">
+                    {social.label}
+                  </span>
+                </div>
+   
+        
               ))}
             </div>
           </div>
