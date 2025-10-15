@@ -40,7 +40,7 @@ const Navigation = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="text-xl font-bold">
-            <span onClick={() => scrollToSection("home")} className="text-primary">MR</span>
+            <span onClick={() => scrollToSection("home")} className="text-primary cursor-pointer  hover:underline hover:scale-110 inline-block transition-all duration-300">MR</span>
             <span className="text-foreground">.</span>
           </div>
 
