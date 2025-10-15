@@ -29,11 +29,11 @@ const Hero = () => {
       label: "Google Scholar",
     },
     { icon: Github, url: "https://github.com/mahfujr403/", label: "GitHub" },
-    // {
-    //   icon: SiOrcid,
-    //   url: "https://orcid.org/my-orcid?orcid=0009-0001-3674-7152",
-    //   label: "ORCID",
-    // },
+    {
+      icon: SiOrcid,
+      url: "https://orcid.org/my-orcid?orcid=0009-0001-3674-7152",
+      label: "ORCID",
+    },
   ];
 
   const scrollToContact = () => {
