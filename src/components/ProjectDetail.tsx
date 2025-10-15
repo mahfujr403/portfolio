@@ -101,7 +101,7 @@ const ResearchModal = ({ project, isOpen, onClose }) => {
                     variant="outline"
                     size="sm"
                     className="relative bg-gradient-to-r from-primary to-orange-500 text-primary-foreground border border-primary/50 hover:scale-105 hover:brightness-110 hover:shadow-md active:scale-95 active:shadow-sm transition-all duration-300 rounded-md px-4 py-2 text-sm font-semibold group"
-                    onClick={() => window.open(`https://doi.org/${project.doi}`, '_blank')}
+                    onClick={() => window.open(project.doi, '_blank')}
                   >
                     <span className="relative z-10 flex items-center gap-2">
                       <ExternalLink size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
