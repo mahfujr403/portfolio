@@ -41,6 +41,14 @@ const Hero = () => {
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
+
+    const scrollToResearch = () => {
+    const element = document.getElementById("research");
+    if (element) element.scrollIntoView({ behavior: "smooth" });
+  };
+
+
+
   // Typewriter loop state
 const phrases = [
   "AI Researcher & DL Specialist",
@@ -158,7 +166,7 @@ useEffect(() => {
               <Button
                 variant="outline"
                 size="lg"
-                onClick={() => window.open("#research", "_self")}
+                onClick={scrollToResearch}
                 className="border-border hover:border-primary transition-transform transform hover:scale-105"
               >
                 View Research
