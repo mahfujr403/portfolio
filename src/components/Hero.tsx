@@ -102,7 +102,7 @@ useEffect(() => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Text Content */}
           <div className="space-y-6">
-            <div className="space-y-4">
+            <div className="space-y-4 mb-2">
               <h2 className="text-primary text-lg sm:text-xl font-medium animate-slide-up">
                 Hello, I'm
               </h2>
@@ -124,7 +124,7 @@ useEffect(() => {
             </div>
 
             <p
-              className="text-muted-foreground text-lg text-justify leading-relaxed max-w-xl 
+              className="text-muted-foreground text-lg text-justify mt-2 leading-relaxed max-w-xl 
               opacity-0 transform translate-y-4 
               animate-fade-in-up-desc"
             >
