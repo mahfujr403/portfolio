@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FileText, ExternalLink, Code } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import {
   Pagination,
   PaginationContent,
@@ -17,6 +18,7 @@ const Research = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [nextPage, setNextPage] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [filterType, setFilterType] = useState<string>("published");
   const itemsPerPage = 3;
 
   const projects = [
@@ -29,7 +31,7 @@ const Research = () => {
       technologies: ["TensorFlow", "OpenCV", "Streamlit", "User Interface"],
       aiContribution:
         "User interface development and feature fusionn for reliable result.",
-      status: "Presented",
+      status: "Published",
       publisher: "Springer",
       conference: "BIM 2025",
       publicationType: "Book Chapter",
@@ -43,7 +45,7 @@ const Research = () => {
       technologies: ["Keras", "TensorFlow", "Deep Learning", "GRAD-CAM"],
       aiContribution:
         "Primary dataset creation and ensemble model for higher accuracy.",
-      status: "Presented",
+      status: "Published",
       publisher: "Springer",
       conference: "ICDSA 2025",
       publicationType: "Book Chapter",
@@ -57,7 +59,7 @@ const Research = () => {
       technologies: ["GRAD-CAM", "Keras", "CNN", "Medical Imaging"],
       aiContribution:
         "Grad-CAM and ensemble methods to reliably classify histopathology image.",
-      status: "Presented",
+      status: "Published",
       publisher: "Springer",
       conference: "BIM 2025",
       publicationType: "Book Chapter",
@@ -65,42 +67,51 @@ const Research = () => {
     {
       banner: banners["ICDSA 2025"],
       title:
-        "Recognizing Bangla Numerals: A Deep Learning Approach on a Novel Handwritten Dataset",
+        "Advanced Neural Networks for Sentiment Analysis in Social Media",
       shortDescription:
-        "This research improves Bangla handwritten numeral recognition using deep learning and ensemble models, demonstrating effective recognition on a primary dataset.",
-      technologies: ["Keras", "TensorFlow", "Deep Learning", "GRAD-CAM"],
+        "Developing state-of-the-art models for understanding emotions and opinions in multilingual social media content with focus on Bangla language processing.",
+      technologies: ["PyTorch", "NLP", "BERT", "Transformers"],
       aiContribution:
-        "Primary dataset creation and ensemble model for higher accuracy.",
-      status: "Presented",
-      publisher: "Springer",
-      conference: "ICDSA 2025",
-      publicationType: "Book Chapter",
+        "Novel architecture for multilingual sentiment classification.",
+      status: "On Going",
+      publisher: null,
+      conference: null,
+      publicationType: "Research Paper",
     },
     {
       banner: banners["BIM 2025"],
       title:
-        "An Integrated Deep Learning Methodology for the Automated Histopathological Differentiation of Lung throughout Colon Cancer",
+        "Real-time Object Detection for Autonomous Vehicle Systems",
       shortDescription:
-        "This research applies deep learning to classify lung and colon cancer histopathology images, providing accurate, interpretable, AI-assisted diagnostics.",
-      technologies: ["GRAD-CAM", "Keras", "CNN", "Medical Imaging"],
+        "Creating efficient deep learning models for real-time object detection and tracking in autonomous driving scenarios with emphasis on edge computing.",
+      technologies: ["YOLO", "TensorFlow Lite", "Edge AI", "Computer Vision"],
       aiContribution:
-        "Grad-CAM and ensemble methods to reliably classify histopathology image.",
-      status: "Presented",
-      publisher: "Springer",
-      conference: "BIM 2025",
-      publicationType: "Book Chapter",
+        "Optimized model for edge deployment with high accuracy.",
+      status: "On Going",
+      publisher: null,
+      conference: null,
+      publicationType: "Research Paper",
     },
   ];
 
+  // Filter projects based on status
+  const filteredProjects = filterType === "all" 
+    ? projects 
+    : projects.filter(project => 
+        filterType === "published" 
+          ? project.status === "Published" 
+          : project.status === "On Going"
+      );
+
   // Calculate pagination
-  const totalPages = Math.ceil(projects.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredProjects.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentProjects = projects.slice(startIndex, endIndex);
+  const currentProjects = filteredProjects.slice(startIndex, endIndex);
   
   const nextStartIndex = (nextPage - 1) * itemsPerPage;
   const nextEndIndex = nextStartIndex + itemsPerPage;
-  const nextProjects = projects.slice(nextStartIndex, nextEndIndex);
+  const nextProjects = filteredProjects.slice(nextStartIndex, nextEndIndex);
 
   // Handle page change
   const handlePageChange = (page: number) => {
@@ -120,6 +131,15 @@ const Research = () => {
         element.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }, 700);
+  };
+
+  // Handle filter change
+  const handleFilterChange = (value: string) => {
+    if (value) {
+      setFilterType(value);
+      setCurrentPage(1); // Reset to first page when filter changes
+      setNextPage(1);
+    }
   };
 
   // Generate page numbers to display
@@ -174,6 +194,35 @@ const Research = () => {
               Exploring cutting-edge AI research in computer vision, OCR, and
               intelligent systems
             </p>
+          </div>
+
+          {/* Filter Toggle */}
+          <div className="flex justify-center">
+            <ToggleGroup 
+              type="single" 
+              value={filterType} 
+              onValueChange={handleFilterChange}
+              className="bg-card border border-border rounded-lg p-1"
+            >
+              <ToggleGroupItem 
+                value="published" 
+                className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
+              >
+                Published
+              </ToggleGroupItem>
+              <ToggleGroupItem 
+                value="ongoing"
+                className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
+              >
+                On Going
+              </ToggleGroupItem>
+              <ToggleGroupItem 
+                value="all"
+                className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
+              >
+                All
+              </ToggleGroupItem>
+            </ToggleGroup>
           </div>
 
           {/* Projects Grid */}
@@ -242,7 +291,13 @@ const Research = () => {
                     <div className="flex flex-wrap justify-between items-center w-full border-t border-border pt-2 text-primary font-medium">
                       <span>
                         Status:{" "}
-                        <span className="text-muted-foreground">{project.status}</span>
+                        <span className={`${
+                          project.status === "Published" 
+                            ? "text-green-500" 
+                            : "text-orange-500"
+                        } font-semibold`}>
+                          {project.status}
+                        </span>
                       </span>
 
                       {project.publisher && (
@@ -277,7 +332,8 @@ const Research = () => {
             
             {/* Next page cards (coming forward) */}
             {isTransitioning && (
-              <div className="absolute top-0 left-0 right-0 grid md:grid-cols-2 lg:grid-cols-3 gap-6 z-10"
+              <div className="absolute top-0 left-0 right-0 grid md:grid-cols-2 lg:grid-cols-3 gap-6 z-10 opacity-0"
+              key={`next-${nextPage}`}
               style={{
                 animation: 'zoomIn 700ms ease-in-out forwards'
               }}>
@@ -388,7 +444,7 @@ const Research = () => {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center mt-2">
               <Pagination>
                 <PaginationContent>
                   <PaginationItem>
@@ -427,13 +483,13 @@ const Research = () => {
 
           {/* Results Info */}
           <div className="text-center text-sm text-muted-foreground">
-            Showing {startIndex + 1} - {Math.min(endIndex, projects.length)} of {projects.length} research projects
+            Showing {startIndex + 1} - {Math.min(endIndex, filteredProjects.length)} of {filteredProjects.length} {filterType === "all" ? "" : filterType} research projects
           </div>
 
           {/* Future Plans Note */}
           <div className="text-center animate-fade-in text-justify">
             <p className="text-sm text-muted-foreground">
-              *Currently working on integrating UI components for all research
+              Currently working on integrating UI components for all research
               papers and projects
             </p>
           </div>
