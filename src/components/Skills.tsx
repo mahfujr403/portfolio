@@ -10,8 +10,8 @@ const Skills = () => {
       skills: [
         { name: "Python", level: 90 },
         { name: "C++", level: 85 },
-        { name: "JavaScript", level: 75 },
         { name: "C", level: 80 },
+        { name: "JavaScript", level: 75 },
       ],
     },
     {
@@ -40,8 +40,8 @@ const Skills = () => {
       skills: [
         { name: "Git & GitHub", level: 85 },
         { name: "Jupyter Notebook", level: 90 },
-        { name: "Docker", level: 70 },
-        { name: "Linux", level: 80 },
+        { name: "Docker", level: 20 },
+        { name: "Linux", level: 30 },
       ],
     },
   ];

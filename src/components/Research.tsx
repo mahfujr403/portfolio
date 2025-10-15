@@ -1,9 +1,24 @@
+import { useState } from "react";
 import { FileText, ExternalLink, Code } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 import { banners } from "@/lib/banner.ts";
 
 const Research = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [nextPage, setNextPage] = useState(1);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const itemsPerPage = 3;
+
   const projects = [
     {
       banner: banners["BIM 2025"],
@@ -47,7 +62,7 @@ const Research = () => {
       conference: "BIM 2025",
       publicationType: "Book Chapter",
     },
-     {
+    {
       banner: banners["ICDSA 2025"],
       title:
         "Recognizing Bangla Numerals: A Deep Learning Approach on a Novel Handwritten Dataset",
@@ -75,131 +90,356 @@ const Research = () => {
       conference: "BIM 2025",
       publicationType: "Book Chapter",
     },
-    
   ];
 
+  // Calculate pagination
+  const totalPages = Math.ceil(projects.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentProjects = projects.slice(startIndex, endIndex);
+  
+  const nextStartIndex = (nextPage - 1) * itemsPerPage;
+  const nextEndIndex = nextStartIndex + itemsPerPage;
+  const nextProjects = projects.slice(nextStartIndex, nextEndIndex);
+
+  // Handle page change
+  const handlePageChange = (page: number) => {
+    if (page === currentPage || isTransitioning) return;
+    
+    setNextPage(page);
+    setIsTransitioning(true);
+    
+    // Wait for animation to complete
+    setTimeout(() => {
+      setCurrentPage(page);
+      setIsTransitioning(false);
+      
+      // Scroll to research section when page changes
+      const element = document.getElementById("research");
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 700);
+  };
+
+  // Generate page numbers to display
+  const getPageNumbers = () => {
+    const pages = [];
+    const maxVisible = 5;
+    
+    if (totalPages <= maxVisible) {
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      if (currentPage <= 3) {
+        for (let i = 1; i <= 4; i++) {
+          pages.push(i);
+        }
+        pages.push('ellipsis');
+        pages.push(totalPages);
+      } else if (currentPage >= totalPages - 2) {
+        pages.push(1);
+        pages.push('ellipsis');
+        for (let i = totalPages - 3; i <= totalPages; i++) {
+          pages.push(i);
+        }
+      } else {
+        pages.push(1);
+        pages.push('ellipsis');
+        for (let i = currentPage - 1; i <= currentPage + 1; i++) {
+          pages.push(i);
+        }
+        pages.push('ellipsis');
+        pages.push(totalPages);
+      }
+    }
+    
+    return pages;
+  };
+
   return (
-  <section
-    id="research"
-    className="py-16 px-4 sm:px-6 lg:px-8 animate-fade-in-up"
-  >
-    <div className="container mx-auto">
-      <div className="space-y-10">
-        {/* Section Header */}
-        <div className="text-center space-y-2 animate-fade-in">
-          <h2 className="text-3xl sm:text-4xl font-semibold animate-title-reveal text-center">
-            <span className="gradient-title">Research & Projects</span>
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-justify">
-            Exploring cutting-edge AI research in computer vision, OCR, and
-            intelligent systems
-          </p>
-        </div>
+    <section
+      id="research"
+      className="py-16 px-4 sm:px-6 lg:px-8 animate-fade-in-up"
+    >
+      <div className="container mx-auto">
+        <div className="space-y-10">
+          {/* Section Header */}
+          <div className="text-center space-y-2 animate-fade-in">
+            <h2 className="text-3xl sm:text-4xl font-semibold animate-title-reveal text-center">
+              <span className="gradient-title">Research & Projects</span>
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-justify">
+              Exploring cutting-edge AI research in computer vision, OCR, and
+              intelligent systems
+            </p>
+          </div>
 
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 animate-slide-up">
-          {projects.map((project, index) => (
-            <Card
-              key={index}
-              className="flex flex-col bg-card border border-border shadow-sm transition-transform duration-300 ease-in-out hover:scale-[1.02] hover:shadow-lg hover:shadow-primary/20"
-            >
-              {/* Banner */}
-              {project.banner && (
-                <img
-                  src={project.banner}
-                  alt={project.title}
-                  className="w-full h-40 object-cover rounded-t-lg border-b border-border transition-transform duration-300 hover:scale-[1.015]"
-                />
-              )}
+          {/* Projects Grid */}
+          <div className="relative min-h-[500px]">
+            {/* Current page cards */}
+            <div className={`grid md:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-700 ease-in-out ${
+              isTransitioning 
+                ? 'opacity-0 scale-75 -z-10' 
+                : 'opacity-100 scale-100 z-0'
+            }`}
+            key={`current-${currentPage}`}>
+              {currentProjects.map((project, index) => (
+              <Card
+                key={startIndex + index}
+                className="flex flex-col bg-card border border-border shadow-sm transition-transform duration-300 ease-in-out hover:scale-[1.02] hover:shadow-lg hover:shadow-primary/20 group"
+              >
+                {/* Banner */}
+                {project.banner && (
+                  <img
+                    src={project.banner}
+                    alt={project.title}
+                    className="w-full h-40 object-cover rounded-t-lg border-b border-border transition-transform duration-300 hover:scale-[1.015]"
+                  />
+                )}
 
-              <div className="p-4 flex-1 flex flex-col justify-between space-y-1">
-                {/* Title & Description */}
-                <div className="text-left">
-                  <h3 className="text-l font-semibold text-foreground">
-                    {project.title}
-                  </h3>
-                  <p className="text-xs text-muted-foreground text-justify mt-0.5">
-                    {project.shortDescription}
-                  </p>
-                  {project.conference && (
-                    <h4 className="text-xs font-bold text-muted-foreground mt-1.5">
-                      {project.conference}
-                    </h4>
-                  )}
-                </div>
-
-                {/* Technologies */}
-                <div className="flex flex-wrap justify-around gap-1 text-center">
-                  {project.technologies.map((tech, techIndex) => (
-                    <span
-                      key={techIndex}
-                      className="px-3 py-1 text-xs rounded-md bg-secondary text-foreground"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {/* AI Contribution / Novelty */}
-                <div className="bg-muted/30 border-l-4 border-primary/60 rounded-md px-3 py-1 shadow-sm">
-                  <span className="text-sm font-semibold text-primary">
-                    Contribution:
-                  </span>{" "}
-                  <span className="text-xs font-semibold text-muted-foreground">
-                    {project.aiContribution}
-                  </span>
-                </div>
-
-                {/* Publication Details */}
-                <div className="mt-2 text-xs text-left flex flex-col gap-1">
-                  <div className="flex flex-wrap justify-between items-center w-full border-t border-border pt-2 text-primary font-medium">
-                    <span>
-                      Status:{" "}
-                      <span className="text-muted-foreground">{project.status}</span>
-                    </span>
-
-                    {project.publisher && (
-                      <span>
-                        Publisher:{" "}
-                        <span className="text-muted-foreground">{project.publisher}</span>
-                      </span>
-                    )}
-
-                    {project.publicationType && (
-                      <span>
-                        Type:{" "}
-                        <span className="text-muted-foreground">{project.publicationType}</span>
-                      </span>
+                <div className="p-4 flex-1 flex flex-col justify-between space-y-1">
+                  {/* Title & Description */}
+                  <div className="text-left">
+                    <h3 className="text-l font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
+                      {project.title}
+                    </h3>
+                    <p className="text-xs text-muted-foreground text-justify mt-0.5">
+                      {project.shortDescription}
+                    </p>
+                    {project.conference && (
+                      <h4 className="text-xs font-bold text-muted-foreground mt-1.5">
+                        {project.conference}
+                      </h4>
                     )}
                   </div>
+
+                  {/* Technologies */}
+                  <div className="flex flex-wrap justify-around gap-1 text-center">
+                    {project.technologies.map((tech, techIndex) => (
+                      <span
+                        key={techIndex}
+                        className="px-3 py-1 text-xs rounded-md bg-secondary text-foreground"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* AI Contribution / Novelty */}
+                  <div className="bg-muted/30 border-l-4 border-primary/60 rounded-md px-3 py-1 shadow-sm">
+                    <span className="text-sm font-semibold text-primary">
+                      Contribution:
+                    </span>{" "}
+                    <span className="text-xs font-semibold text-muted-foreground">
+                      {project.aiContribution}
+                    </span>
+                  </div>
+
+                  {/* Publication Details */}
+                  <div className="mt-2 text-xs text-left flex flex-col gap-1">
+                    <div className="flex flex-wrap justify-between items-center w-full border-t border-border pt-2 text-primary font-medium">
+                      <span>
+                        Status:{" "}
+                        <span className="text-muted-foreground">{project.status}</span>
+                      </span>
+
+                      {project.publisher && (
+                        <span>
+                          Publisher:{" "}
+                          <span className="text-muted-foreground">{project.publisher}</span>
+                        </span>
+                      )}
+
+                      {project.publicationType && (
+                        <span>
+                          Type:{" "}
+                          <span className="text-muted-foreground">{project.publicationType}</span>
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* View Details Button */}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="mt-0 w-full justify-between text-muted-foreground border border-border hover:bg-primary/10 transition-all duration-300"
+                  >
+                    <span>View Details</span>
+                    <ExternalLink size={16} />
+                  </Button>
                 </div>
+              </Card>
+            ))}
+            </div>
+            
+            {/* Next page cards (coming forward) */}
+            {isTransitioning && (
+              <div className="absolute top-0 left-0 right-0 grid md:grid-cols-2 lg:grid-cols-3 gap-6 z-10"
+              style={{
+                animation: 'zoomIn 700ms ease-in-out forwards'
+              }}>
+                {nextProjects.map((project, index) => (
+              <Card
+                key={startIndex + index}
+                className="flex flex-col bg-card border border-border shadow-sm transition-transform duration-300 ease-in-out hover:scale-[1.02] hover:shadow-lg hover:shadow-primary/20 group"
+              >
+                {/* Banner */}
+                {project.banner && (
+                  <img
+                    src={project.banner}
+                    alt={project.title}
+                    className="w-full h-40 object-cover rounded-t-lg border-b border-border transition-transform duration-300 hover:scale-[1.015]"
+                  />
+                )}
 
-                {/* View Details Button */}
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="mt-0 w-full justify-between text-muted-foreground border border-border hover:bg-primary/10 transition-all duration-300"
-                >
-                  <span>View Details</span>
-                  <ExternalLink size={16} />
-                </Button>
+                <div className="p-4 flex-1 flex flex-col justify-between space-y-1">
+                  {/* Title & Description */}
+                  <div className="text-left">
+                    <h3 className="text-l font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
+                      {project.title}
+                    </h3>
+                    <p className="text-xs text-muted-foreground text-justify mt-0.5">
+                      {project.shortDescription}
+                    </p>
+                    {project.conference && (
+                      <h4 className="text-xs font-bold text-muted-foreground mt-1.5">
+                        {project.conference}
+                      </h4>
+                    )}
+                  </div>
+
+                  {/* Technologies */}
+                  <div className="flex flex-wrap justify-around gap-1 text-center">
+                    {project.technologies.map((tech, techIndex) => (
+                      <span
+                        key={techIndex}
+                        className="px-3 py-1 text-xs rounded-md bg-secondary text-foreground"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* AI Contribution / Novelty */}
+                  <div className="bg-muted/30 border-l-4 border-primary/60 rounded-md px-3 py-1 shadow-sm">
+                    <span className="text-sm font-semibold text-primary">
+                      Contribution:
+                    </span>{" "}
+                    <span className="text-xs font-semibold text-muted-foreground">
+                      {project.aiContribution}
+                    </span>
+                  </div>
+
+                  {/* Publication Details */}
+                  <div className="mt-2 text-xs text-left flex flex-col gap-1">
+                    <div className="flex flex-wrap justify-between items-center w-full border-t border-border pt-2 text-primary font-medium">
+                      <span>
+                        Status:{" "}
+                        <span className="text-muted-foreground">{project.status}</span>
+                      </span>
+
+                      {project.publisher && (
+                        <span>
+                          Publisher:{" "}
+                          <span className="text-muted-foreground">{project.publisher}</span>
+                        </span>
+                      )}
+
+                      {project.publicationType && (
+                        <span>
+                          Type:{" "}
+                          <span className="text-muted-foreground">{project.publicationType}</span>
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* View Details Button */}
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="mt-0 w-full justify-between text-muted-foreground border border-border hover:bg-primary/10 transition-all duration-300"
+                  >
+                    <span>View Details</span>
+                    <ExternalLink size={16} />
+                  </Button>
+                </div>
+              </Card>
+            ))}
               </div>
-            </Card>
-          ))}
-        </div>
+            )}
+          </div>
+          
+          <style>{`
+            @keyframes zoomIn {
+              from {
+                opacity: 0;
+                transform: scale(1.3);
+              }
+              to {
+                opacity: 1;
+                transform: scale(1);
+              }
+            }
+          `}</style>
 
-        {/* Future Plans Note */}
-        <div className="text-center animate-fade-in text-justify">
-          <p className="text-sm text-muted-foreground">
-            Currently working on integrating UI components for all research
-            papers and projects
-          </p>
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="flex justify-center mt-8">
+              <Pagination>
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
+                      className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                    />
+                  </PaginationItem>
+                  
+                  {getPageNumbers().map((page, idx) => (
+                    <PaginationItem key={idx}>
+                      {page === 'ellipsis' ? (
+                        <PaginationEllipsis />
+                      ) : (
+                        <PaginationLink
+                          onClick={() => handlePageChange(page as number)}
+                          isActive={currentPage === page}
+                          className="cursor-pointer"
+                        >
+                          {page}
+                        </PaginationLink>
+                      )}
+                    </PaginationItem>
+                  ))}
+                  
+                  <PaginationItem>
+                    <PaginationNext
+                      onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
+                      className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
+            </div>
+          )}
+
+          {/* Results Info */}
+          <div className="text-center text-sm text-muted-foreground">
+            Showing {startIndex + 1} - {Math.min(endIndex, projects.length)} of {projects.length} research projects
+          </div>
+
+          {/* Future Plans Note */}
+          <div className="text-center animate-fade-in text-justify">
+            <p className="text-sm text-muted-foreground">
+              *Currently working on integrating UI components for all research
+              papers and projects
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-
-
+    </section>
   );
 };
 
