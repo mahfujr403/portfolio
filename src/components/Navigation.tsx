@@ -22,6 +22,7 @@ const Navigation = () => {
     }
   };
 
+
   const navLinks = [
     { name: "Home", id: "home" },
     { name: "About", id: "about" },
@@ -39,7 +40,7 @@ const Navigation = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="text-xl font-bold">
-            <span className="text-primary">MR</span>
+            <span onClick={() => scrollToSection("home")} className="text-primary">MR</span>
             <span className="text-foreground">.</span>
           </div>
 
