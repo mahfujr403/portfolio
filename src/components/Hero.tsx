@@ -51,9 +51,10 @@ const Hero = () => {
 
   // Typewriter loop state
 const phrases = [
-  "AI Researcher & DL Specialist",
+  "AI & DL Researcher",
   "Computer Vision Expert",
-  "Medical Image Processing Enthusiast",
+  "AI Systems Researcher",
+  "Vision AI Specialist"
 ];
 const [displayedText, setDisplayedText] = useState("");
 const [phraseIndex, setPhraseIndex] = useState(0);
