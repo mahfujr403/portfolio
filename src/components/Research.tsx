@@ -492,12 +492,6 @@ const Research = () => {
             {filteredProjects.length} {filterType === "all" ? "" : filterType} research projects
           </div>
 
-          {/* Future Plans Note */}
-          <div className="text-center animate-fade-in text-justify">
-            <p className="text-xs sm:text-sm text-muted-foreground max-w-2xl mx-auto">
-              Currently working on integrating UI components for all research papers and projects
-            </p>
-          </div>
 
           {/* Modal */}
           <ResearchModal
