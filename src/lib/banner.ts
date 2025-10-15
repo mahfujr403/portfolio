@@ -5,7 +5,7 @@ import QPAIN25 from "../assets/banner/QPAIN25.png"
 
 
 export const banners = {
-  "BIM 2025": BIM25,
-  "ICDSA 2025": ICDSA25,
-  "QPAIN 2025": QPAIN25,
+  BIM25,
+  ICDSA25,
+  QPAIN25,
 };
