@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FileText, ExternalLink, Code, X, Award, Book, Image } from "lucide-react";
+import { ExternalLink, Image  } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/pagination";
 import projects from "@/lib/projects.ts";
 import { TechScroll } from "@/lib/scroll";
-import{ ResearchModal } from "./ProjectDetail";
+import { ResearchModal } from "./ProjectDetail";
 
 
 
@@ -26,7 +26,7 @@ const Research = () => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const itemsPerPage = 3;
-  
+
 
   // Filter projects based on publicationType
   const filteredProjects = filterType === "all"
@@ -44,6 +44,7 @@ const Research = () => {
   const nextStartIndex = (nextPage - 1) * itemsPerPage;
   const nextEndIndex = nextStartIndex + itemsPerPage;
   const nextProjects = filteredProjects.slice(nextStartIndex, nextEndIndex);
+
 
   // Handle page change
   const handlePageChange = (page: number) => {
@@ -174,11 +175,10 @@ const Research = () => {
           <div className="relative min-h-[400px] sm:min-h-[600px]">
             {/* Current page cards */}
             <div
-              className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 transition-all duration-700 ease-in-out ${
-                isTransitioning
-                  ? "opacity-0 scale-75 -z-10"
-                  : "opacity-100 scale-100 z-0"
-              } ${currentProjects.length < 3 && currentProjects.length > 0 ? "lg:justify-items-center" : ""}`}
+              className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 transition-all duration-700 ease-in-out ${isTransitioning
+                ? "opacity-0 scale-75 -z-10"
+                : "opacity-100 scale-100 z-0"
+                } ${currentProjects.length < 3 && currentProjects.length > 0 ? "lg:justify-items-center" : ""}`}
               key={`current-${currentPage}`}
               style={{
                 gridTemplateColumns:
@@ -189,6 +189,26 @@ const Research = () => {
                   currentProjects.length < 3 && currentProjects.length > 0 ? "center" : undefined,
               }}
             >
+
+
+
+              {filteredProjects.length === 0 &&
+
+                <div className="col-span-full w-full flex items-center justify-center h-[70vh]">
+                  <div className="flex flex-col items-center justify-center text-center text-muted-foreground animate-fade-in">
+                    <Image size={48} className="mb-4 opacity-60" />
+                    <p className="text-base sm:text-lg font-medium">{filterType} are on the way!</p>
+                    <p className="text-xs sm:text-sm mt-1 max-w-sm">
+                      Working on  {filterType}. Check back soon for updates. <br/> 
+                    </p>
+                    <span className="text-s"> Explore my <b onClick={() => handleFilterChange("all")} className="cursor-pointer text-primary-foreground">other research papers</b> in the meantime.</span>
+                  </div>
+                </div>
+
+
+
+              }
+
               {currentProjects.map((project, index) => (
                 <Card
                   key={startIndex + index}
@@ -215,11 +235,10 @@ const Research = () => {
                       {/* status badge */}
                       <div className="absolute top-3 right-3">
                         <span
-                          className={`px-3 py-1 rounded-full text-xs font-bold backdrop-blur-md border ${
-                            project.status === "Published"
-                              ? "bg-green-500/90 text-white border-green-400"
-                              : "bg-orange-500/90 text-white border-orange-400"
-                          } shadow-lg`}
+                          className={`px-3 py-1 rounded-full text-xs font-bold backdrop-blur-md border ${project.status === "Published"
+                            ? "bg-green-500/90 text-white border-green-400"
+                            : "bg-orange-500/90 text-white border-orange-400"
+                            } shadow-lg`}
                         >
                           {project.status}
                         </span>
@@ -303,14 +322,15 @@ const Research = () => {
                   </div>
                 </Card>
               ))}
+
+
             </div>
 
             {/* Next page cards (coming forward) */}
             {isTransitioning && (
               <div
-                className={`absolute top-0 left-0 right-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 z-10 opacity-0 ${
-                  nextProjects.length < 3 && nextProjects.length > 0 ? "lg:justify-items-center" : ""
-                }`}
+                className={`absolute top-0 left-0 right-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 z-10 opacity-0 ${nextProjects.length < 3 && nextProjects.length > 0 ? "lg:justify-items-center" : ""
+                  }`}
                 key={`next-${nextPage}`}
                 style={{
                   animation: "zoomIn 700ms ease-in-out forwards",
@@ -459,9 +479,8 @@ const Research = () => {
                   <PaginationItem>
                     <PaginationPrevious
                       onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
-                      className={`${
-                        currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"
-                      } text-xs sm:text-sm px-2 sm:px-3 py-1.5`}
+                      className={`${currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"
+                        } text-xs sm:text-sm px-2 sm:px-3 py-1.5`}
                     />
                   </PaginationItem>
 
@@ -484,9 +503,8 @@ const Research = () => {
                   <PaginationItem>
                     <PaginationNext
                       onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
-                      className={`${
-                        currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"
-                      } text-xs sm:text-sm px-2 sm:px-3 py-1.5`}
+                      className={`${currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"
+                        } text-xs sm:text-sm px-2 sm:px-3 py-1.5`}
                     />
                   </PaginationItem>
                 </PaginationContent>
@@ -509,7 +527,7 @@ const Research = () => {
           />
         </div>
       </div>
-    </section>
+    </section >
   );
 };
 
