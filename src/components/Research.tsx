@@ -22,19 +22,18 @@ const Research = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [nextPage, setNextPage] = useState(1);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [filterType, setFilterType] = useState<string>("published");
+  const [filterType, setFilterType] = useState<string>("all");
   const [selectedProject, setSelectedProject] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const itemsPerPage = 3;
+  
 
-  // Filter projects based on status
+  // Filter projects based on publicationType
   const filteredProjects = filterType === "all"
     ? projects
-    : projects.filter(project =>
-        filterType === "published"
-          ? project.status === "Published"
-          : project.status === "On Going"
-      );
+    : projects.filter(project => project.publicationType === filterType);
+
+
 
   // Calculate pagination
   const totalPages = Math.ceil(filteredProjects.length / itemsPerPage);
@@ -142,17 +141,26 @@ const Research = () => {
               className="bg-card border border-border rounded-lg p-1 flex-wrap gap-1 sm:gap-2"
             >
               <ToggleGroupItem
-                value="published"
+                value="Conference Paper"
                 className="text-xs sm:text-sm px-3 py-1.5 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
               >
-                Published
+                Conference
               </ToggleGroupItem>
+
               <ToggleGroupItem
-                value="ongoing"
+                value="Book Chapter"
                 className="text-xs sm:text-sm px-3 py-1.5 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
               >
-                On Going
+                Book Chapter
               </ToggleGroupItem>
+
+              <ToggleGroupItem
+                value="Journal"
+                className="text-xs sm:text-sm px-3 py-1.5 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
+              >
+                Journal
+              </ToggleGroupItem>
+
               <ToggleGroupItem
                 value="all"
                 className="text-xs sm:text-sm px-3 py-1.5 data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
@@ -204,7 +212,7 @@ const Research = () => {
                       {/* Overlay gradient */}
                       <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent"></div>
 
-                      {/* Status badge */}
+                      {/* status badge */}
                       <div className="absolute top-3 right-3">
                         <span
                           className={`px-3 py-1 rounded-full text-xs font-bold backdrop-blur-md border ${

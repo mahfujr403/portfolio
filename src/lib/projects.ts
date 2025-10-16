@@ -139,7 +139,7 @@ const projects = [
         publisher: "Springer",
         publisherBanner: banners.ICDSA25,
         conference: "ICDSA 2025",
-        publicationType: "Book Chapter",
+        publicationType: "Journal",
         doi: "10.1007/978-XXX-XXXXX-YY",
         presentationDate: "February 2025",
         certificate: certificates.ICDSA25_OCR,
