@@ -357,8 +357,8 @@ const Research = () => {
                       />
                     )}
 
-                    <div className="p-4 flex-1 flex flex-col justify-between space-y-1">
                       {/* Title & Description */}
+                    <div className="p-4 flex-1 flex flex-col justify-between space-y-1">
                       <div className="text-left">
                         <h3 className="text-base sm:text-lg font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
                           {project.title}

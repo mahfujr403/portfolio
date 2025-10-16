@@ -56,12 +56,10 @@ const ResearchModal = ({ project, isOpen, onClose }) => {
               alt={project.title}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-
-            {/* Title overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
             <div className="absolute bottom-0 left-0 right-0 p-6">
               <DialogHeader>
-                <DialogTitle className="text-2xl font-bold text-white leading-tight">
+                <DialogTitle className="text-2xl font-bold text-white leading-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
                   {project.title}
                 </DialogTitle>
               </DialogHeader>
