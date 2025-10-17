@@ -47,11 +47,11 @@ const Research = () => {
 
 
 
-   const scrollToContact = () => {
+  const scrollToContact = () => {
     const element = document.getElementById("contact");
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
-  
+
   // Handle page change
   const handlePageChange = (page: number) => {
     if (page === currentPage || isTransitioning) return;
@@ -551,6 +551,7 @@ const Research = () => {
                 </p>
               </div>
 
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
                 {/* Focus Area 1 */}
                 <div className="space-y-2 p-4 rounded-lg bg-secondary/30 border border-border/50 hover:shadow-lg transition-shadow duration-300">
@@ -559,8 +560,9 @@ const Research = () => {
                     <h4 className="text-sm font-bold text-foreground">Medical Imaging & AI</h4>
                   </div>
                   <ul className="text-xs text-muted-foreground leading-relaxed list-disc pl-5 space-y-1">
-                    <li>An Integrated Deep Learning Methodology for Automated Histopathological Differentiation of Lung & Colon Cancer</li>
-                    <li>Transfer Learning-Based Multiclass Brain Tumor Classification Using MRI Data</li>
+                    <li>Deep learning models for medical image classification</li>
+                    <li>AI-driven tumor and cancer detection techniques</li>
+                    <li>Transfer learning for precise MRI-based diagnosis</li>
                   </ul>
                 </div>
 
@@ -571,9 +573,9 @@ const Research = () => {
                     <h4 className="text-sm font-bold text-foreground">Computer Vision & Recognition</h4>
                   </div>
                   <ul className="text-xs text-muted-foreground leading-relaxed list-disc pl-5 space-y-1">
-                    <li>Enhancing Face Recognition in Unconstrained Conditions Using Ensemble Deep Learning Models</li>
-                    <li>Intelligent Recognition of Bangla Handwritten Digits</li>
-                    <li>Recognizing Bangla Numerals: A Deep Learning Approach on a Novel Handwritten Dataset</li>
+                    <li>Ensemble methods for robust face recognition</li>
+                    <li>Bangla handwritten digit recognition with deep CNNs</li>
+                    <li>Novel dataset creation for OCR research</li>
                   </ul>
                 </div>
 
@@ -583,9 +585,12 @@ const Research = () => {
                     <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
                     <h4 className="text-sm font-bold text-foreground">Intelligent Systems</h4>
                   </div>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    Building adaptive AI solutions that integrate deep learning, pattern recognition, and ensemble modeling to solve complex real-world problems across medical imaging, OCR, and computer vision applications.
-                  </p>
+                  <ul className="text-xs text-muted-foreground leading-relaxed list-disc pl-5 space-y-1">
+                    <li>Adaptive intelligence with deep learning and OCR</li>
+                    <li>Pattern recognition and ensemble modeling</li>
+                    <li>Applications in real-world intelligent automation</li>
+                  </ul>
+
                 </div>
               </div>
 
@@ -600,8 +605,6 @@ const Research = () => {
               </div>
             </div>
           </Card>
-
-
 
         </div>
       </div>
