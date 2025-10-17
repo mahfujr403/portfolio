@@ -6,8 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
-import emailjs from '@emailjs/browser'; // Ensure you have this package installed
-import { title } from "process";
+
 
 const Contact = () => {
   const { toast } = useToast();
