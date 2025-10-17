@@ -30,7 +30,7 @@ const icpcData = [
         team: "VU_Strangers",
         date: "September 30, 2023",
         location: "Online",
-        problemsSolved: "5/10",
+        problemsSolved: "5",
         certificate: [certificates.ICPC_preli_me, certificates.ICPC_preli_team],
         images: [
             "/events/icpc-2023-team.jpg"

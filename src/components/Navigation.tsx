@@ -1,16 +1,26 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import profileImage from "@/assets/profile.jpg";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const [isInHomeSection, setIsInHomeSection] = useState(true);
 
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
+
+      // Check if we're in the home section
+      const homeSection = document.getElementById("home");
+      if (homeSection) {
+        const rect = homeSection.getBoundingClientRect();
+        setIsInHomeSection(rect.bottom > 100);
+      }
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -33,22 +43,16 @@ const Navigation = () => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // const scrollToSection = (id: string) => {
-  //   const element = document.getElementById(id);
-  //   if (element) {
-  //     element.scrollIntoView({ behavior: "smooth" });
-  //     setIsMobileMenuOpen(false);
-  //   }
-  // };
 
   const scrollToSection = (id) => {
     const section = document.getElementById(id);
     if (section) {
       section.scrollIntoView({ behavior: "smooth", block: "start" });
       setActiveSection(id); // highlight on click
+      setIsMobileMenuOpen(false);
     }
   };
 
@@ -86,16 +90,67 @@ const Navigation = () => {
                 {link.name}
               </button>
             ))}
+
+            {/* Profile Image - shown when not in home section */}
+            {/* {!isInHomeSection && (
+              <div className="relative group animate-fade-in">
+                <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary hover:border-primary hover:scale-110 transition-all duration-300 cursor-pointer" onClick={() => scrollToSection("home")}>
+                  <img
+                    src={profileImage}
+                    alt="Profile"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            )} */}
+            <AnimatePresence>
+              {!isInHomeSection && (
+                <motion.div
+                  key="profile-icon"
+                  initial={{ opacity: 0, scale: 0.5, y: -20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.5, y: 20 }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative group"
+                >
+                  <div
+                    className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary hover:scale-110 transition-transform duration-300 cursor-pointer shadow-md hover:shadow-primary/30"
+                    onClick={() => scrollToSection("home")}
+                  >
+                    <img
+                      src={profileImage}
+                      alt="Profile"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-foreground"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="md:hidden flex items-center gap-3">
+            {/* Profile Image - shown when not in home section (Mobile) */}
+            {!isInHomeSection && (
+              <div className="relative group animate-fade-in">
+                <div className="w-9 h-9 rounded-full overflow-hidden border-2 border-primary/50 cursor-pointer" onClick={() => scrollToSection("home")}>
+                  <img
+                    src={profileImage}
+                    alt="Profile"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            )}
+
+            <button
+              className="text-foreground"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 
