@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ExternalLink, Image  } from "lucide-react";
+import { ExternalLink, Image } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
@@ -46,6 +46,12 @@ const Research = () => {
   const nextProjects = filteredProjects.slice(nextStartIndex, nextEndIndex);
 
 
+
+   const scrollToContact = () => {
+    const element = document.getElementById("contact");
+    if (element) element.scrollIntoView({ behavior: "smooth" });
+  };
+  
   // Handle page change
   const handlePageChange = (page: number) => {
     if (page === currentPage || isTransitioning) return;
@@ -199,7 +205,7 @@ const Research = () => {
                     <Image size={48} className="mb-4 opacity-60" />
                     <p className="text-base sm:text-lg font-medium">{filterType} are on the way!</p>
                     <p className="text-xs sm:text-sm mt-1 max-w-sm">
-                      Working on  {filterType}. Check back soon for updates. <br/> 
+                      Working on  {filterType}. Check back soon for updates. <br />
                     </p>
                     <span className="text-s"> Explore my <b onClick={() => handleFilterChange("all")} className="cursor-pointer text-primary-foreground">other research papers</b> in the meantime.</span>
                   </div>
@@ -357,7 +363,7 @@ const Research = () => {
                       />
                     )}
 
-                      {/* Title & Description */}
+                    {/* Title & Description */}
                     <div className="p-4 flex-1 flex flex-col justify-between space-y-1">
                       <div className="text-left">
                         <h3 className="text-base sm:text-lg font-semibold text-foreground transition-colors duration-300 group-hover:text-primary">
@@ -525,6 +531,78 @@ const Research = () => {
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
           />
+
+
+          {/* Research Impact Summary */}
+          <Card className="relative overflow-hidden bg-gradient-to-br from-card via-card to-card/50 border border-border/50 shadow-lg mt-8">
+            {/* Animated gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-orange-500/5 opacity-50"></div>
+
+            {/* Animated corner accent */}
+            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary/10 to-transparent blur-3xl"></div>
+
+            <div className="relative p-6 sm:p-8">
+              <div className="text-center space-y-4 mb-6">
+                <h3 className="text-xl sm:text-2xl font-bold text-foreground">
+                  <span className="gradient-title">Research Impact & Vision</span>
+                </h3>
+                <p className="text-sm sm:text-base text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                  Driving innovation in artificial intelligence, deep learning, and computer vision through impactful research in medical imaging, pattern recognition, and intelligent systems.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+                {/* Focus Area 1 */}
+                <div className="space-y-2 p-4 rounded-lg bg-secondary/30 border border-border/50 hover:shadow-lg transition-shadow duration-300">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                    <h4 className="text-sm font-bold text-foreground">Medical Imaging & AI</h4>
+                  </div>
+                  <ul className="text-xs text-muted-foreground leading-relaxed list-disc pl-5 space-y-1">
+                    <li>An Integrated Deep Learning Methodology for Automated Histopathological Differentiation of Lung & Colon Cancer</li>
+                    <li>Transfer Learning-Based Multiclass Brain Tumor Classification Using MRI Data</li>
+                  </ul>
+                </div>
+
+                {/* Focus Area 2 */}
+                <div className="space-y-2 p-4 rounded-lg bg-secondary/30 border border-border/50 hover:shadow-lg transition-shadow duration-300">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                    <h4 className="text-sm font-bold text-foreground">Computer Vision & Recognition</h4>
+                  </div>
+                  <ul className="text-xs text-muted-foreground leading-relaxed list-disc pl-5 space-y-1">
+                    <li>Enhancing Face Recognition in Unconstrained Conditions Using Ensemble Deep Learning Models</li>
+                    <li>Intelligent Recognition of Bangla Handwritten Digits</li>
+                    <li>Recognizing Bangla Numerals: A Deep Learning Approach on a Novel Handwritten Dataset</li>
+                  </ul>
+                </div>
+
+                {/* Focus Area 3 */}
+                <div className="space-y-2 p-4 rounded-lg bg-secondary/30 border border-border/50 hover:shadow-lg transition-shadow duration-300">
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+                    <h4 className="text-sm font-bold text-foreground">Intelligent Systems</h4>
+                  </div>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Building adaptive AI solutions that integrate deep learning, pattern recognition, and ensemble modeling to solve complex real-world problems across medical imaging, OCR, and computer vision applications.
+                  </p>
+                </div>
+              </div>
+
+              {/* Call to Action */}
+              <div className="mt-6 text-center">
+                <p className="text-xs sm:text-sm text-muted-foreground">
+                  Interested in collaboration or exploring my research in AI and deep learning?{" "}
+                  <a onClick={scrollToContact} className="text-primary font-semibold cursor-pointer transition-colors">
+                    Get in touch
+                  </a>
+                </p>
+              </div>
+            </div>
+          </Card>
+
+
+
         </div>
       </div>
     </section >

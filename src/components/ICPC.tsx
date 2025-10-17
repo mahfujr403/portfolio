@@ -225,7 +225,7 @@ const ICPCShowcase = () => {
                     </div>
 
                     {/* Stats Summary */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <Card className="p-4 sm:p-6 text-center bg-gradient-to-br from-card via-card to-card/50 border border-border/50 hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-1 transition-all duration-300">
                             <Trophy className="w-6 h-6 sm:w-8 sm:h-8 text-primary mx-auto mb-2" />
                             <div className="text-xl sm:text-2xl font-bold text-foreground">{icpcData.length}</div>
@@ -252,7 +252,9 @@ const ICPCShowcase = () => {
                             </div>
                             <div className="text-xs sm:text-sm text-muted-foreground">Years Active</div>
                         </Card>
-                    </div>
+                    </div> */}
+
+
                 </div>
             </div>
 
@@ -316,9 +318,9 @@ const ICPCShowcase = () => {
                                 )}
 
                                 {/* Image Counter */}
-                                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-background/90 text-foreground px-4 py-2 rounded-full text-xs sm:text-sm border border-border">
+                                {/* <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-background/90 text-foreground px-4 py-2 rounded-full text-xs sm:text-sm border border-border">
                                     {selectedImageIndex === -1 ? 'Certificate' : `${selectedImageIndex + 1} / ${selectedEvent.images.length}`}
-                                </div>
+                                </div> */}
                             </div>
                         </>
                     )}
