@@ -47,7 +47,7 @@ const Skills = () => {
   ];
 
   return (
-    <section id="skills" className="py-20 px-4 sm:px-6 lg:px-8 bg-card/30">
+    <section id="skills" className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 animate-fade-in-up">
       <div className="container mx-auto">
         <div className="space-y-12">
           {/* Section Header */}

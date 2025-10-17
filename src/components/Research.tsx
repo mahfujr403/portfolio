@@ -309,7 +309,7 @@ const Research = () => {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="relative mt-2 w-full justify-between text-foreground bg-secondary/50 border border-border/50 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-300 overflow-hidden group/btn text-xs sm:text-sm py-2 sm:py-2.5"
+                      className="relative mt-2 w-full sm:w-auto justify-between text-foreground bg-gradient-to-r from-primary/70 to-orange-500/60 border border-transparent hover:from-primary hover:to-orange-500 hover:text-primary-foreground shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden group/btn text-xs sm:text-sm py-2 sm:py-2.5 rounded-lg hover:scale-[1.03] active:scale-[0.98]"
                       onClick={() => handleViewDetails(project)}
                     >
                       <span className="relative z-10 font-semibold">Explore Details</span>

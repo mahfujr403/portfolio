@@ -6,6 +6,7 @@ import Research from "@/components/Research";
 import Skills from "@/components/Skills";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import ICPCShowcase from "@/components/ICPC";
 
 const Index = () => {
   return (
@@ -16,6 +17,7 @@ const Index = () => {
         <Hero />
         <About />
         <Research />
+        <ICPCShowcase />
         <Skills />
         <Contact />
       </main>
