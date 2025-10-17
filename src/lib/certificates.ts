@@ -6,6 +6,7 @@ import QPAIN25_OCR from "../assets/certificates/QPAIN25_OCR.jpg";
 import ICPC_onste_me from "../assets/certificates/ICPC_onste_me.jpg"
 import ICPC_onste_team from "../assets/certificates/ICPC_onste_team.jpg"
 import ICPC_preli_me from "../assets/certificates/ICPC_preli_me.jpg"
+import ICPC_preli_team from "../assets/certificates/ICPC_preli_team.jpg"
 
 
 export const certificates = {
@@ -16,5 +17,6 @@ export const certificates = {
     QPAIN25_OCR,
     ICPC_onste_me,
     ICPC_onste_team,
-    ICPC_preli_me
+    ICPC_preli_me,
+    ICPC_preli_team
 }

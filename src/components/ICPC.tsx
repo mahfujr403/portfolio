@@ -2,54 +2,10 @@ import { useState } from "react";
 import { Trophy, Award, Calendar, Users, MapPin, ExternalLink, ChevronLeft, ChevronRight } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { certificates } from "@/lib/certificates";
+import icpcData from "@/lib/icpcData";
 
-// Sample data structure - replace with your actual data
-const icpcData = [
-    {
-        id: 1,
-        year: "2023",
-        contest: "The 2023 ICPC Asia Dhaka Regional Contest",
-        rank: "99th",
-        team: "VU_Strangers",
-        date: "November 04, 2023",
-        location: "Dhaka, Bangladesh",
-        problemsSolved: "3",
-        certificate: [certificates.ICPC_onste_me, certificates.ICPC_onste_team],
-        images: [
-            "/events/icpc-2024-team.jpg",
-            "/events/icpc-2024-contest.jpg",
-            "/events/icpc-2024-venue.jpg"
-        ],
-        achievements: [
-            "Ranked in top 100",
-            "Best performance in university"
-        ],
-        description: "Competed in the ICPC Asia Dhaka Regional contest representing our university. Solved challenging algorithmic problems under time pressure."
-    },
-    {
-        id: 2,
-        year: "2023",
-        contest: "ICPC Preliminary Contest",
-        rank: "42nd",
-        team: "Team AlgoWarriors",
-        date: "October 20, 2023",
-        location: "Online",
-        problemsSolved: "6/10",
-        certificate: "/certificates/icpc-2023.jpg",
-        images: [
-            "/events/icpc-2023-team.jpg"
-        ],
-        achievements: [
-            "Qualified for regionals",
-            "Solved 6 problems",
-            "Top 50 nationally"
-        ],
-        description: "Successfully qualified for the regional contest through the preliminary round with strong team coordination."
-    }
-];
+
 
 const ICPCShowcase = () => {
     const [selectedEvent, setSelectedEvent] = useState(null);
@@ -115,6 +71,7 @@ const ICPCShowcase = () => {
         <section id="icpc" className="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 bg-card/30 animate-fade-in-up">
             <div className="container mx-auto max-w-7xl">
                 <div className="space-y-8 sm:space-y-10">
+
                     {/* Section Header */}
                     <div className="text-center space-y-2 animate-fade-in">
                         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold animate-title-reveal text-center">
@@ -148,9 +105,9 @@ const ICPCShowcase = () => {
                                                 <span className="px-4 py-1.5 rounded-full text-sm font-bold backdrop-blur-md border bg-primary text-primary-foreground border-primary shadow-lg">
                                                     {event.year}
                                                 </span>
-                                                <span className="px-3 py-1.5 rounded-full text-xs font-bold backdrop-blur-md border bg-green-500/90 text-white border-green-400 shadow-lg">
+                                                {/* <span className="px-3 py-1.5 rounded-full text-xs font-bold backdrop-blur-md border bg-green-500/90 text-white border-green-400 shadow-lg">
                                                     Rank: {event.rank}
-                                                </span>
+                                                </span> */}
                                             </div>
 
                                             <div className="space-y-2">
@@ -183,7 +140,7 @@ const ICPCShowcase = () => {
                                                 <div className="flex items-center gap-1.5">
                                                     <Trophy className="w-3.5 h-3.5 text-primary" />
                                                     <span className="text-muted-foreground">
-                                                        Problems: <span className="font-semibold text-foreground">{event.problemsSolved}</span>
+                                                        Problems Solved: <span className="font-semibold text-foreground">{event.problemsSolved}</span>
                                                     </span>
                                                 </div>
                                                 <div className="flex items-center gap-1.5">
