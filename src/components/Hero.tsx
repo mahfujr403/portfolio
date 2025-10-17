@@ -105,7 +105,7 @@ useEffect(() => {
           <div className="space-y-6">
             <div className="space-y-4 mb-2">
               <h2 className="text-lg sm:text-xl font-medium animate-slide-up">
-                Hello, I'm
+                Assalamu Alaikum, I'm
               </h2>
 
               {/* Professional name animation */}
