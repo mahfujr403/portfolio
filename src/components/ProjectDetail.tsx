@@ -196,17 +196,19 @@ const ResearchModal = ({ project, isOpen, onClose }) => {
                   Event Gallery
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {project.eventPhotos.map((photo, index) => (
+
+                  {project.eventPhotos.map((photoObj, index) => (
                     <Card
                       key={index}
                       className="overflow-hidden group cursor-pointer hover:shadow-lg transition-all duration-300"
-                      onClick={() => setSelectedPhoto(photo)}
+                      onClick={() => setSelectedPhoto(photoObj.src)}
                     >
                       <div className="relative aspect-video overflow-hidden">
                         <img
-                          src={photo}
+                          src={photoObj.src}
                           alt={`Event ${index + 1}`}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                          style={{ objectPosition: photoObj.focus || "center" }}
                         />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
                       </div>
@@ -215,6 +217,9 @@ const ResearchModal = ({ project, isOpen, onClose }) => {
                 </div>
               </div>
             )}
+
+
+
 
             {/* Publisher Banner */}
             {project.publisherBanner && (
